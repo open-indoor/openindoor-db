@@ -5,8 +5,6 @@ services:
     image: postgis/postgis:12-3.1
     environment:
       POSTGRES_DB: openindoor-db
-      POSTGRES_USER: openindoor-db-admin
-      POSTGRES_PASSWORD: admin123
       API_URL: http://api-sandbox.openindoor.io
       APP_URL: http://app-sandbox.openindoor.io
     volumes:

@@ -14,9 +14,6 @@ kind: ConfigMap
 metadata:
   name: openindoor-db-config
 data:
-  POSTGRES_DB: openindoor-db
-  POSTGRES_USER: openindoor-db-admin
-  POSTGRES_PASSWORD: admin123
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -55,6 +52,13 @@ spec:
           envFrom:
             - configMapRef:
                 name: openindoor-db-config
+            - secretRef:
+                name: postgres
+          env:
+            - name: POSTGRES_DB
+              value: openindoor-db
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: openindoor-db-storage
