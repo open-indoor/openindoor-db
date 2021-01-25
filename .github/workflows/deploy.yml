@@ -17,21 +17,6 @@ env:
   GKE_ZONE: europe-north1-a
 
 jobs:
-  setup-build-publish:
-    name: Setup, Build, Publish
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-
-    # Login to Docker Hub using helper
-    -  name: Login to Docker Hub
-       uses: docker/login-action@v1
-       with:
-         username: ${{ secrets.DOCKERHUB_USERNAME }}
-         password: ${{ secrets.DOCKERHUB_TOKEN    }}
-
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
