@@ -32,20 +32,6 @@ jobs:
          username: ${{ secrets.DOCKERHUB_USERNAME }}
          password: ${{ secrets.DOCKERHUB_TOKEN    }}
 
-
-    # Build the Docker image
-    - name: Build
-      run: |-
-        #Pull the image to save the build time
-        docker build \
-          --tag "$IMAGE":"$GITHUB_SHA" \
-          .
-
-    # Push the Docker image to Google Container Registry
-    - name: Publish
-      run: |-
-        docker push "$IMAGE":"$GITHUB_SHA"
-
   deploy:
     name: Deploy
     runs-on: ubuntu-latest
