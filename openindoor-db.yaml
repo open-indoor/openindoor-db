@@ -21,7 +21,7 @@ metadata:
   name: openindoor-db-pvc
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 5Gi
