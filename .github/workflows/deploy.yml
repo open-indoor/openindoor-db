@@ -3,7 +3,7 @@ name: Deploy postgres to Kubernetes
 on:
   push:
     branch:
-    - master
+    - main
     - dev
 
 env:

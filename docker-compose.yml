@@ -7,9 +7,6 @@ services:
       POSTGRES_DB: openindoor-db
       POSTGRES_USER: openindoor-db-admin
       POSTGRES_PASSWORD: admin123
-    # volumes:
-    # - ./test/data:/data
-    # - ./Caddyfile:/etc/caddy/Caddyfile
     ports:
     - 5432:5432
 

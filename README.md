@@ -6,16 +6,29 @@
 $ docker-compose rm
 ```
 ### Start the db and db adminer
+![Adminer](doc/adminer.png?raw=true "Adminer")
 
 ```
 $ docker-compose up openindoor-db openindoor-adminer
 ```
 ### Import data
+Main command:
+```
+ogr2ogr -f "PostgreSQL" \
+  PG:"dbname='openindoor-db' host='openindoor-db' port='5432' user='openindoor-db-admin' password='admin123'" \
+  /data/france/ FranceRoissyEnFranceAroportDeParisCharlesDeGaulle.geojson \
+  -nln buildings \
+  -overwrite \
+  -skipfailures
+```
+With docker-compose:
 ```
 $ docker-compose up openindoor-gdal
 ```
 
 ### Check the result
+
+![tegola](doc/tegola.png?raw=true "tegola")
 ```
 $ docker-compose up openindoor-tegola
 ```
