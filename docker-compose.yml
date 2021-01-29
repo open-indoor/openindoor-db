@@ -7,10 +7,47 @@ services:
       POSTGRES_DB: openindoor-db
       POSTGRES_USER: openindoor-db-admin
       POSTGRES_PASSWORD: admin123
-      API_URL: http://api-sandbox.openindoor.io
-      APP_URL: http://app-sandbox.openindoor.io
-    volumes:
-    - ./test/data:/data
+    # volumes:
+    # - ./test/data:/data
     # - ./Caddyfile:/etc/caddy/Caddyfile
     ports:
     - 5432:5432
+
+  openindoor-adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8091:8080
+
+  openindoor-gdal:
+    image: osgeo/gdal:3.2.0
+    volumes:
+    - ./test/data:/data
+    command: >
+      ogr2ogr -f "PostgreSQL"
+        PG:"dbname='openindoor-db' host='openindoor-db' port='5432' user='openindoor-db-admin' password='admin123'"
+        /data/france/FranceRoissyEnFranceAroportDeParisCharlesDeGaulle.geojson
+        -nln buildings
+        -overwrite
+        -skipfailures
+
+# https://t-rex.tileserver.ch/doc/reference/
+  openindoor-rex:
+    image: sourcepole/t-rex
+    environment:
+      POSTGRES_DB: openindoor-db
+      POSTGRES_USER: openindoor-db-admin
+      POSTGRES_PASSWORD: admin123
+    command: serve --bind=0.0.0.0 --openbrowser=false --config=/data/config.toml
+    volumes:
+    - ./t-rex/config.toml:/data/config.toml
+    ports:
+    - 6767:6767
+    
+  openindoor-tegola:
+    image: gospatial/tegola:v0.12.1
+    command: serve --config /opt/tegola_config/config.toml
+    volumes:
+    - ./tegola:/opt/tegola_config
+    ports:
+    - 8092:8080
