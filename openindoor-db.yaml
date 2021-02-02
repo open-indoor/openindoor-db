@@ -8,12 +8,21 @@ spec:
    - port: 5432
   selector:
    app: openindoor-db
----   
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: openindoor-db-config
-data:
+---
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: openindoor-db-secret
+# type: Opaque
+# data:
+#   username: YWRtaW4=
+#   password: MWYyZDFlMmU2N2Rm
+---
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: openindoor-db-config
+# data:
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -53,10 +62,25 @@ spec:
             - configMapRef:
                 name: openindoor-db-config
             - secretRef:
-                name: postgres
+                name: openindoor-db-secret
           env:
             - name: POSTGRES_DB
-              value: openindoor-db
+              valueFrom:
+                secretKeyRef:
+                  name: openindoor-db-secret
+                  key: POSTGRES_DB        
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: openindoor-db-secret
+                  key: POSTGRES_USER        
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: openindoor-db-secret
+                  key: POSTGRES_PASSWORD
+            # - name: POSTGRES_DB
+            #   value: openindoor-db
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata
           volumeMounts:
