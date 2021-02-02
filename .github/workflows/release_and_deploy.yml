@@ -8,9 +8,9 @@ on:
 env:
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
   IMAGE: postgis/postgis:12-3.1
-  POSTGRES_DB: ${{ secrets.SANDBOX_POSTGRES_DB }}
-  POSTGRES_USER: ${{ secrets.SANDBOX_POSTGRES_USER }}
-  POSTGRES_PASSWORD: ${{ secrets.SANDBOX_POSTGRES_PASSWORD }}
+  POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+  POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+  POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: cluster-1
   GKE_ZONE: europe-north1-a
