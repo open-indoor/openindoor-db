@@ -30,7 +30,7 @@ metadata:
   name: openindoor-db-pvc
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 5Gi
@@ -59,8 +59,6 @@ spec:
           ports:
             - containerPort: 5432
           envFrom:
-            - configMapRef:
-                name: openindoor-db-config
             - secretRef:
                 name: openindoor-db-secret
           env:
