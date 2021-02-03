@@ -9,7 +9,7 @@ spec:
     protocol: TCP
     targetPort: 80
   selector:
-    app: openindoor-pgadmin
+    run: openindoor-pgadmin
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -32,13 +32,13 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: openindoor-pgadmin
+      run: openindoor-pgadmin
   strategy:
     type: Recreate      
   template:
     metadata:
       labels:
-        app: openindoor-pgadmin
+        run: openindoor-pgadmin
     spec:
       containers:
       - name: openindoor-pgadmin

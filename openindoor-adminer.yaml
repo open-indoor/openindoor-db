@@ -9,7 +9,7 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    app: openindoor-adminer
+    run: openindoor-adminer
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -21,13 +21,13 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: openindoor-adminer
+      run: openindoor-adminer
   strategy:
     type: Recreate      
   template:
     metadata:
       labels:
-        app: openindoor-adminer
+        run: openindoor-adminer
     spec:
       containers:
       - name: openindoor-adminer
