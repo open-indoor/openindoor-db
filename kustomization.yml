@@ -5,5 +5,11 @@ commonLabels:
 images:
   - name: openindoor/openindoor-db
     newTag: latest
+  - name: openindoor/openindoor-adminer
+    newTag: latest    
+  - name: openindoor/openindoor-pgadmin
+    newTag: latest    
 resources:
 - openindoor-db.yaml
+- openindoor-adminer.yaml
+- openindoor-pgadmin.yaml

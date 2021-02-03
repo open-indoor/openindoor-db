@@ -3,26 +3,14 @@ kind: Service
 metadata:
   name: openindoor-db
 spec:
-  type: NodePort
+  clusterIP: None
   ports:
-   - port: 5432
+  - name: http
+    port: 5432
+    protocol: TCP
+    targetPort: 5432
   selector:
    app: openindoor-db
----
-# apiVersion: v1
-# kind: Secret
-# metadata:
-#   name: openindoor-db-secret
-# type: Opaque
-# data:
-#   username: YWRtaW4=
-#   password: MWYyZDFlMmU2N2Rm
----
-# apiVersion: v1
-# kind: ConfigMap
-# metadata:
-#   name: openindoor-db-config
-# data:
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -56,8 +44,6 @@ spec:
       containers:
         - name: openindoor-db
           image: postgis/postgis:12-3.1
-          ports:
-            - containerPort: 5432
           envFrom:
             - secretRef:
                 name: openindoor-db-secret
@@ -77,13 +63,14 @@ spec:
                 secretKeyRef:
                   name: openindoor-db-secret
                   key: POSTGRES_PASSWORD
-            # - name: POSTGRES_DB
-            #   value: openindoor-db
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: openindoor-db-storage
+          ports:
+          - containerPort: 5432
+
       volumes:
         - name: openindoor-db-storage
           persistentVolumeClaim:
