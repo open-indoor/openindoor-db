@@ -10,7 +10,7 @@ spec:
     protocol: TCP
     targetPort: 5432
   selector:
-   app: openindoor-db
+   run: openindoor-db
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
